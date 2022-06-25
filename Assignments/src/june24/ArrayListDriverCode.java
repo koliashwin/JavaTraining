@@ -26,17 +26,17 @@ import java.util.Scanner;
 public class ArrayListDriverCode {
 	
 	public void menu(ArrayList<String> ar) {
-		int ch=-1;
+		int ch=8;
 		int idx;
 		String element;
 		
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("choose one of the operation : ");
-		System.out.println(" 1.add \n 2.add First \n 3.add Last \n 4.retrieve \n 5.update \n 6.remove \n 7.search \n 8.display \n 0.exit");
+		System.out.println(" 1.add \t\t 2.add First \t 3.add Last \t 4.retrieve \n 5.update \t 6.remove \t 7.search \t 8.display \n 0.exit");
 		
 		
-		do {
+		while(ch !=0){
 			
 			switch(ch) {
 				case 1:{
@@ -117,7 +117,7 @@ public class ArrayListDriverCode {
 			sc.nextLine();
 			System.out.println();
 			
-		}while(ch !=0);
+		};
 		
 	}
 
