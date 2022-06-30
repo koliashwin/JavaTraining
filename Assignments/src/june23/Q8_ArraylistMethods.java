@@ -1,6 +1,8 @@
 package june23;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 //Write A arraylist program using these methods
 //
@@ -35,7 +37,8 @@ public class Q8_ArraylistMethods {
 		System.out.println("Cloned list :"+ newList);
 		System.out.println("is 1 exist in list : " + list.contains(1));
 		System.out.println("Index of 1 :"+ list.indexOf(1));
-		
+		Collections.sort(list);
+		System.out.println("Sorted list : "+list);
 	}
 
 }
