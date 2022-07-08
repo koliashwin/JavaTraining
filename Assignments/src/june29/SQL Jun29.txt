@@ -1,0 +1,104 @@
+SELECT first_name, last_name from actor;
+
+Select upper(concat(first_name,' ',last_name)) as 'Actor Name' from actor;
+
+select actor_id, first_name, last_name from actor
+where first_name like 'Joe';
+
+select first_name, last_name
+	from actor
+	where last_name like '%GEN%';
+	
+select first_name, last_name
+	from actor
+	where last_name like '%LI%'
+	order by last_name, first_name;
+	
+	
+select country_id, country
+	from country
+	where country in ('Afghanistan', 'Bangladesh', 'China');
+	
+alter table actor
+	add column middle_name varchar(30) after first_name;
+	
+alter table actor
+	modify column middle_name blob;
+	
+alter table actor
+	drop column middle_name;
+	
+select last_name as 'Last Name', count(last_name) as 'Last Name Count'
+	from actor
+	group by last_name;
+	
+select last_name as 'Last Name', count(last_name) as 'Last Name Count'
+	from actor
+	group by last_name
+	having count(last_name) > 1;
+	
+
+update actor
+	set first_name = 'HARPO'
+	where first_name = 'Groucho' and last_name = 'Williams';
+	
+
+create table address_new (
+		address_id integer(11) NOT NULL,
+    		address varchar(30) NOT NULL,
+    		adress2 varchar(30) NOT NULL,
+    		district varchar(30) NOT NULL,
+    		city_id integer(11) NOT NULL,
+    		postal_code integer(11) NOT NULL,
+    		phone integer(10) NOT NULL,
+    		location varchar(30) NOT NULL,
+    		last_update datetime
+	);
+	
+select s.first_name as 'First Name', s.last_name as 'Last Name', a.address as 'Address'
+	from staff as s
+	join address as a 
+	ON a.address_id = s.address_id;
+	
+select concat(s.first_name,' ',s.last_name) as 'Staff Member', sum(p.amount) as 'Total Amount'
+	from payment as p
+	join staff as s
+	on p.staff_id = s.staff_id
+	where payment_date like '2005-08%'
+	group by p.staff_id;
+	
+select f.title as 'Film', count(fa.actor_id) as 'Number of Actors'
+	from film as f
+	join film_actor as fa
+	on f.film_id = fa.film_id
+	group by f.title;
+	
+	
+select f.title as Film, count(i.inventory_id) as 'Inventory Count'
+	from film as f
+	join inventory as i
+	on f.film_id = i.film_id
+	where f.title = 'Hunchback Impossible'
+	group by f.film_id;
+	
+select concat(c.first_name,' ',c.last_name) as 'Customer Name', sum(p.amount) as 'Total Paid'
+	from payment as p
+	join customer as c
+	on p.customer_id = c.customer_id
+	group by p.customer_id;
+	
+	
+create view top_5_genre_revenue as 
+	SELECT c.name as 'Film', sum(p.amount) as 'Gross Revenue'
+	from category as c
+	join film_category as fc on fc.category_id = c.category_id
+	join inventory as i on i.film_id = fc.film_id
+	join rental as r on r.inventory_id = i.inventory_id
+	join payment as p on p.rental_id = r.rental_id
+	group by c.name
+	order by sum(p.amount) desc
+	limit 5;
+	
+SELECT * FROM top_5_genre_revenue;
+
+drop view top_5_genre_revenue;
